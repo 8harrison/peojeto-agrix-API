@@ -21,8 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  **/
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(securedEnabled = true)
-public class SecurityConfig {
+public class SecurityConfiguration {
 
   //  private final SecurityFilter securityFilter;
   //
@@ -38,9 +37,10 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
     return httpSecurity.csrf(AbstractHttpConfigurer::disable).sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        //        .authorizeHttpRequests(authorize -> authorize
-        //            .requestMatchers(HttpMethod.POST, "/persons").permitAll()
-        //            .anyRequest().authenticated())
+                .authorizeHttpRequests(authorize -> authorize
+                    .requestMatchers(HttpMethod.POST, "/persons").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                    .anyRequest().authenticated())
         //        .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
   }
