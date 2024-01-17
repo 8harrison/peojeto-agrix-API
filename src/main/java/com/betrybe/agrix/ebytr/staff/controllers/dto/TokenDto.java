@@ -1,5 +1,8 @@
 package com.betrybe.agrix.ebytr.staff.controllers.dto;
 
-public record TokenDto() {
+/**
+ * Implementação do record TokenDto.
+ * **/
+public record TokenDto(String token) {
 
 }
